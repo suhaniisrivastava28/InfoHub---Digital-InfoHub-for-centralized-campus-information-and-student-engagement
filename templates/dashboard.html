@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - GNIOT Hub FLEX Portal{% endblock %}
+
+{% block content %}
+<!-- LEVEL 2: FLEX STUDENT UNIVERSITY PORTAL DASHBOARD -->
+
+<!-- 1. HERO WELCOME BANNER (Dribbble Design) -->
+<div class="mb-4">
+    <div class="p-4 p-md-5 rounded-4 text-white position-relative" 
+         style="background: linear-gradient(135deg, #4f6cf7 0%, #3652ea 100%); box-shadow: 0 14px 34px rgba(67, 97, 238, 0.22); border-radius: 24px !important; overflow: visible !important;">
+        
+        <!-- Subtle Background Decorative Circles -->
+        <div class="position-absolute end-0 top-0 translate-middle-y me-n4 d-none d-md-block opacity-25" style="pointer-events: none; overflow: hidden;">
+            <svg width="260" height="260" viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="90" stroke="white" stroke-width="8" stroke-dasharray="15 15"/>
+                <circle cx="100" cy="100" r="60" fill="white" fill-opacity="0.2"/>
+            </svg>
+        </div>
+
+        <div class="row align-items-center position-relative" style="z-index: 2;">
+            <div class="col-12 col-md-8">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px); font-size: 0.8rem; font-weight: 600;">
+                    <span>📅</span>
+                    <span id="flexLiveDate">Academic Session 2026-2027</span>
+                </div>
+                <h1 class="fw-extrabold mb-2" style="font-size: 2.2rem; letter-spacing: -0.02em;">
+                    Welcome back, {{ 'Administrator' if is_admin else 'Student' }}!
+                </h1>
+                <p class="mb-0 text-white-50" style="font-size: 1rem; max-width: 580px; color: rgba(255, 255, 255, 0.82) !important;">
+                    Always stay updated with official GNIOT academic updates, scholarships, hackathons, and real-time department schedules.
+                </p>
+            </div>
+
+            <div class="col-12 col-md-4 text-md-end mt-4 mt-md-0 position-relative">
+                <!-- Dropdown Quick Jump -->
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-light rounded-pill px-4 py-2 dropdown-toggle shadow fw-bold" 
+                            type="button" id="quickJumpDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false"
+                            style="color: var(--flex-primary); font-size: 0.9rem;">
+                        <i class="bi bi-compass-fill me-1"></i> Jump to Track
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg p-2 border-0 track-scroll-menu" aria-labelledby="quickJumpDropdown" 
+                        style="min-width: 280px; max-height: 340px; overflow-y: auto !important; -webkit-overflow-scrolling: touch; border-radius: 16px; z-index: 1050;">
+                        <li class="sticky-top bg-inherit pb-1">
+                            <h6 class="dropdown-header text-uppercase small text-muted fw-bold px-2 mb-1" style="font-size: 0.72rem;">Academic Channels</h6>
+                        </li>
+                        {% for cat in categories %}
+                            <li>
+                                <a class="dropdown-item py-2 px-3 rounded-3 d-flex align-items-center justify-content-between my-1" href="{{ url_for('category_view', category_id=cat.id) }}">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <span class="fs-6">{{ cat.icon }}</span>
+                                        <span class="fw-medium">{{ cat.name }}</span>
+                                    </span>
+                                    <span class="badge rounded-pill bg-light text-primary small px-2 py-1">{{ category_counts.get(cat.id, 0) }}</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. SESSION PROFILE CARD -->
+<div class="mb-4">
+    <div class="p-4 rounded-4 text-white" 
+         style="background: linear-gradient(135deg, #4463ee 0%, #3552e6 100%); border-radius: 20px !important; box-shadow: 0 10px 28px rgba(67, 97, 238, 0.16);">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0">Session Profile</h5>
+            <span class="badge rounded-pill bg-white text-primary px-3 py-1 code-font small fw-bold">
+                {{ 'PRIVILEGED' if is_admin else 'VERIFIED STUDENT' }}
+            </span>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <span class="text-white-50 small d-block">Authorized Role:</span>
+                <strong class="fs-6">{{ 'Faculty Admin' if is_admin else 'Student Scholar' }}</strong>
+            </div>
+            <div class="col-6 col-md-3">
+                <span class="text-white-50 small d-block">Active Institute:</span>
+                <strong class="fs-6">GNIOT Campus</strong>
+            </div>
+            <div class="col-6 col-md-3">
+                <span class="text-white-50 small d-block">Academic Program:</span>
+                <strong class="fs-6">B.Tech Engineering</strong>
+            </div>
+            <div class="col-6 col-md-3">
+                <span class="text-white-50 small d-block">Semester Division:</span>
+                <strong class="fs-6">{{ session.get('semester', '8th Semester') }}</strong>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-top border-white border-opacity-25 d-flex align-items-center justify-content-between small">
+            <span class="text-white-50"><i class="bi bi-shield-lock-fill me-1"></i> Access Protocol: Secure Auth</span>
+            <span class="fw-bold">RBAC Level: {{ 'Write / Delete' if is_admin else 'Read-Only' }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- 3. ADMIN WRITE PRIVILEGE TERMINAL (Notice Content Injector) -->
+{% if is_admin %}
+<div class="flex-card p-4 mb-4 border-0" style="border-left: 5px solid #ef4444 !important;">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger code-font px-3 py-1 fw-bold">
+                ADMIN CONSOLE
+            </span>
+            <h5 class="fw-bold text-dark mb-0">Notice Content Injector</h5>
+        </div>
+        <button class="btn btn-sm btn-outline-danger rounded-pill px-3 code-font" type="button" data-bs-toggle="collapse" data-bs-target="#adminInjectorTerminal" aria-expanded="false" aria-controls="adminInjectorTerminal">
+            <i class="bi bi-plus-circle-fill me-1"></i> Open Creation Terminal
+        </button>
+    </div>
+
+    <div class="collapse" id="adminInjectorTerminal">
+        <div class="p-4 rounded-4 mt-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+            <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                <i class="bi bi-cloud-arrow-up text-danger fs-5"></i>
+                <span class="fw-bold text-dark code-font">Direct Pipeline to data.json [Atomic Write Action]</span>
+            </div>
+
+            <form method="POST" action="{{ url_for('create_notice') }}" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Target Channel Category</label>
+                        <select class="form-select form-select-sm" name="category" id="noticeCategorySelect" required>
+                            {% for cat in categories %}
+                                <option value="{{ cat.id }}" {% if cat.id == 'scholarships' %}selected{% endif %}>
+                                    {{ cat.icon }} {{ cat.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Notice Title</label>
+                        <input type="text" class="form-control form-control-sm" name="title" placeholder="e.g. GNIOT Tech Innovation Grant 2026" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label small fw-semibold text-muted">Detailed Description</label>
+                        <textarea class="form-control form-control-sm" name="description" rows="2" placeholder="Official announcement overview" required></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Qualification Terms (Eligibility Criteria)</label>
+                        <input type="text" class="form-control form-control-sm" name="eligibility" placeholder="e.g. B.Tech 2nd/3rd Year, Min 7.5 CGPA, no backlogs" required>
+                    </div>
+
+                    <!-- Mapped Resolved Doubt Field: Concerned Authorities Desk -->
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-warning-emphasis">
+                            📍 Concerned Authorities / Doubt Clearance Desk
+                        </label>
+                        <input type="text" class="form-control form-control-sm" name="concerned_authorities" value="Contact Registrar Office, Dean, or relevant HOD Section" required>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label small fw-semibold text-muted">Starting Date</label>
+                        <input type="date" class="form-control form-control-sm" name="starting_date" required>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label small fw-semibold text-muted">Ending Date (Deadline)</label>
+                        <input type="date" class="form-control form-control-sm" name="ending_date" required>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label small fw-semibold text-muted">Package Value / Amount</label>
+                        <input type="text" class="form-control form-control-sm" name="reward_amount" placeholder="e.g. ₹50,000 / Year">
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <label class="form-label small fw-semibold text-muted">Delivery Tag</label>
+                        <select class="form-select form-select-sm" name="submission_type">
+                            <option value="Online Track">Online Track</option>
+                            <option value="Physical Track">Physical Track</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Color Dot Authenticity Level -->
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Authenticity Level (Verification Dot)</label>
+                        <select class="form-select form-select-sm" name="verification_level">
+                            <option value="official">🟢 Officially Authorized by Faculty / Dean / HOD</option>
+                            <option value="crowdsourced">🟡 Crowdsourced (CR / Student Council Contributed)</option>
+                            <option value="unconfirmed">🔴 Unconfirmed / Public Entry (Verification Pending)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label small fw-semibold text-muted">Official URL / Forms Link</label>
+                        <input type="url" class="form-control form-control-sm" name="official_url" placeholder="https://gniot.edu.in/forms">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label small fw-semibold text-muted">Document Checklist (One per line)</label>
+                        <textarea class="form-control form-control-sm" name="required_documents" rows="2" placeholder="GNIOT Student ID Card&#10;Bonafide Certificate&#10;Marksheet Copy"></textarea>
+                    </div>
+
+                    <div class="col-12 mt-3 text-end">
+                        <button type="submit" class="btn btn-danger btn-sm px-4 fw-bold shadow-sm" style="border-radius: 10px;">
+                            <i class="bi bi-cloud-arrow-up-fill me-1"></i> Commit Notice to data.json
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 4. VISUAL CHANNEL GRID MATRIX: 8 MODERN WHITE CARDS (FLEX Style) -->
+<div class="mb-5">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="fw-bold mb-0" style="color: var(--flex-text-dark);">
+            <i class="bi bi-grid-fill text-primary me-2"></i> Notice Channels (8 Tracks)
+        </h5>
+        <span class="text-muted small code-font">Dynamic Categories</span>
+    </div>
+
+    <div class="row g-4">
+        {% for cat in categories %}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <a href="{{ url_for('category_view', category_id=cat.id) }}" class="text-decoration-none">
+                    <div class="flex-card flex-card-hover p-4 h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div style="width: 46px; height: 46px; border-radius: 14px; background: #f0f3fa; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                                    {{ cat.icon }}
+                                </div>
+                                <span class="badge rounded-pill bg-light text-primary code-font small px-2 py-1">
+                                    {{ category_counts.get(cat.id, 0) }} notices
+                                </span>
+                            </div>
+                            <h5 class="fw-bold mb-1" style="color: var(--flex-text-dark);">{{ cat.name }}</h5>
+                            <p class="text-muted small mb-0 lh-sm">{{ cat.tagline }}</p>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top border-light-subtle d-flex align-items-center justify-content-between">
+                            <span class="small text-muted code-font">Track: {{ cat.id }}</span>
+                            <span class="btn btn-sm btn-light rounded-pill px-3 py-1 text-primary fw-bold small" style="font-size: 0.82rem;">
+                                View Feed <i class="bi bi-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 5. DOCUMENT WORKSPACE ANCHOR: GNIOT ACADEMIC CALENDAR -->
+<div class="flex-card p-4 mb-4">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-3 pb-2 border-bottom">
+        <div>
+            <h6 class="fw-bold mb-0 text-dark d-flex align-items-center gap-2">
+                <i class="bi bi-calendar-check-fill text-primary fs-5"></i>
+                Academic Calendar Workspace Anchor — Session (2026-27) Odd Semester
+            </h6>
+            <span class="text-muted small">Official GNIOT university schedule, teaching days, PUT & AKTU examinations</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <a href="{{ url_for('static', filename='academic_calendar.pdf') }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 code-font">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Calendar Tab
+            </a>
+            <a href="{{ url_for('static', filename='academic_calendar.pdf') }}" download="GNIOT_Academic_Calendar_2026-27.pdf" class="btn btn-sm btn-primary rounded-pill px-3 code-font text-white fw-bold" style="background: var(--flex-primary-gradient); border: none;">
+                <i class="bi bi-download me-1"></i> Download PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- Calendar Viewport & High-Res Sheets -->
+    <div class="row g-3">
+        <div class="col-12 col-lg-7">
+            <div class="rounded-3 overflow-hidden border shadow-sm" style="height: 520px; background: #f8fafc;">
+                <iframe 
+                    src="{{ url_for('static', filename='academic_calendar.pdf') }}" 
+                    class="w-100 h-100 border-0" 
+                    title="GNIOT Academic Calendar Viewport"
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5">
+            <div class="d-flex flex-column gap-3 h-100 justify-content-between">
+                <div class="border rounded-3 p-3 bg-light">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="fw-bold text-dark small"><i class="bi bi-image text-primary me-1"></i> High-Resolution Sheet Previews</span>
+                        <span class="badge bg-primary rounded-pill px-2 py-1 code-font" style="font-size: 0.7rem;">Official Notice</span>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="{{ url_for('static', filename='academic_calendar_p1.png') }}" target="_blank" class="d-block border rounded-2 overflow-hidden bg-white shadow-xs text-decoration-none">
+                                <img src="{{ url_for('static', filename='academic_calendar_p1.png') }}" alt="July-Oct 2026" class="img-fluid w-100" style="height: 140px; object-fit: cover; object-position: top;">
+                                <div class="p-1 text-center small text-muted code-font" style="font-size: 0.72rem;">Jul – Oct 2026</div>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{{ url_for('static', filename='academic_calendar_p2.png') }}" target="_blank" class="d-block border rounded-2 overflow-hidden bg-white shadow-xs text-decoration-none">
+                                <img src="{{ url_for('static', filename='academic_calendar_p2.png') }}" alt="Nov-Dec 2026" class="img-fluid w-100" style="height: 140px; object-fit: cover; object-position: top;">
+                                <div class="p-1 text-center small text-muted code-font" style="font-size: 0.72rem;">Nov – Dec 2026</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-3 border bg-white small">
+                    <h6 class="fw-bold text-dark mb-2 small"><i class="bi bi-pin-angle-fill text-danger me-1"></i> Key Academic Deadlines:</h6>
+                    <ul class="list-unstyled mb-0 code-font text-muted small lh-lg">
+                        <li><strong class="text-dark">• Commencement of Classes:</strong> 20th & 27th July 2026</li>
+                        <li><strong class="text-dark">• 1st Sessional Exams:</strong> 28th Sep – 1st Oct 2026</li>
+                        <li><strong class="text-dark">• PUT (Pre-University Test):</strong> 16th – 21st Nov 2026</li>
+                        <li><strong class="text-dark">• End Sem AKTU Exams:</strong> 24th Nov – 27th Dec 2026</li>
+                        <li><strong class="text-dark">• Total Teaching / Working Days:</strong> 88 / 118 Days</li>
+                    </ul>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center small text-muted code-font border-top pt-2">
+                    <span><i class="bi bi-patch-check-fill text-success me-1"></i> Authorized by Dean Academics</span>
+                    <span>Doc: <code>academic_calendar.pdf</code></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

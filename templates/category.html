@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }} - GNIOT Hub FLEX Portal{% endblock %}
+
+{% block content %}
+<!-- LEVEL 3: CATEGORY LISTINGS FEED (FLEX Portal Layout) -->
+
+<!-- Breadcrumb Navigation -->
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb code-font small">
+        <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}" class="text-primary text-decoration-none">Dashboard</a></li>
+        <li class="breadcrumb-item active text-muted" aria-current="page">{{ category.name }}</li>
+    </ol>
+</nav>
+
+<!-- Channel Banner Header -->
+<div class="flex-card p-4 mb-4">
+    <div class="row align-items-center g-3">
+        <div class="col-12 col-md-7">
+            <div class="d-flex align-items-center gap-3">
+                <div style="width: 56px; height: 56px; border-radius: 16px; background: #eef2ff; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+                    {{ category.icon }}
+                </div>
+                <div>
+                    <h3 class="fw-bold mb-0" style="color: var(--flex-text-dark); letter-spacing: -0.01em;">{{ category.name }} Feed</h3>
+                    <p class="text-muted mb-0 small">{{ category.tagline }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-5">
+            <!-- Client-Side Search Bar -->
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0 text-muted" style="border-radius: 30px 0 0 30px; border-color: #e2e8f0;">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input 
+                    type="text" 
+                    id="gniotNoticeSearch" 
+                    class="form-control bg-white border-start-0 border-end-0" 
+                    placeholder="Filter by title, desc, or authority..." 
+                    autocomplete="off"
+                    style="border-color: #e2e8f0; font-size: 0.9rem;">
+                <button class="btn btn-outline-secondary border-start-0" type="button" id="clearGniotSearch" title="Clear filter" style="border-radius: 0 30px 30px 0; border-color: #e2e8f0;">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="d-flex justify-content-between mt-1 px-2 small text-muted code-font">
+                <span id="filteredNoticeCount">Active records: {{ notices|length }}</span>
+                <span class="text-primary">Instant Query</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notice Cards Stream -->
+<div class="row g-4" id="gniotNoticeGrid">
+    {% for notice in notices %}
+        <div class="col-12 col-lg-6 gniot-card-item"
+             data-title="{{ notice.title|lower }}"
+             data-desc="{{ notice.description|lower }}"
+             data-authority="{{ notice.concerned_authorities|lower }}"
+             data-status="{{ notice.verification_level|lower }}">
+
+            <!-- FLEX Style Notice Card -->
+            <div class="flex-card flex-card-hover p-4 h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <!-- Authenticity Dot & Delivery Pill -->
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 pb-2 border-bottom">
+                        
+                        <!-- Verification Status Indicator -->
+                        <div class="d-flex align-items-center gap-2">
+                            {% if notice.verification_level == 'official' %}
+                                <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-pill" style="background: #ecfdf5; border: 1px solid #a7f3d0;">
+                                    <span class="status-dot dot-green"></span>
+                                    <span class="fw-bold code-font text-success small" style="font-size: 0.78rem;">Official Faculty / HOD</span>
+                                </div>
+                            {% elif notice.verification_level == 'crowdsourced' %}
+                                <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-pill" style="background: #fffbeb; border: 1px solid #fde68a;">
+                                    <span class="status-dot dot-yellow"></span>
+                                    <span class="fw-bold code-font text-warning small" style="font-size: 0.78rem;">Crowdsourced (CR / Club)</span>
+                                </div>
+                            {% else %}
+                                <div class="d-flex align-items-center gap-2 px-3 py-1 rounded-pill" style="background: #fef2f2; border: 1px solid #fecaca;">
+                                    <span class="status-dot dot-red"></span>
+                                    <span class="fw-bold code-font text-danger small" style="font-size: 0.78rem;">Unconfirmed Public</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Submission Delivery Tag -->
+                        <div>
+                            {% if notice.submission_type == 'Online Track' %}
+                                <span class="badge rounded-pill px-2 py-1 code-font small" style="background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe;">
+                                    <i class="bi bi-cloud-arrow-up-fill me-1"></i> Online Track
+                                </span>
+                            {% else %}
+                                <span class="badge rounded-pill px-2 py-1 code-font small" style="background: #fef3c7; color: #d97706; border: 1px solid #fde68a;">
+                                    <i class="bi bi-geo-alt-fill me-1"></i> Physical Track
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if notice.poster_image %}
+                        <div class="mb-3 rounded-3 overflow-hidden border shadow-xs text-center" style="max-height: 200px; background: #ffffff;">
+                            <img src="{{ url_for('static', filename=notice.poster_image) }}" alt="{{ notice.title }}" class="img-fluid" style="max-height: 200px; object-fit: contain;">
+                        </div>
+                    {% endif %}
+
+                    <!-- Title & Description -->
+                    <h5 class="fw-bold mb-2" style="color: var(--flex-text-dark);">{{ notice.title }}</h5>
+                    <p class="text-muted small mb-3">{{ notice.description }}</p>
+
+                    <!-- Metrics Details Box -->
+                    <div class="p-3 rounded-3 mb-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                        <div class="row g-2 small code-font">
+                            <div class="col-sm-6">
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">🗓️ Active Period:</span>
+                                <span class="text-dark fw-medium">{{ notice.starting_date }} → {{ notice.ending_date }}</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">📍 Concerned Desk:</span>
+                                <span class="text-primary fw-medium text-truncate d-inline-block mw-100" title="{{ notice.concerned_authorities }}">
+                                    {{ notice.concerned_authorities }}
+                                </span>
+                            </div>
+                            {% if notice.reward_amount %}
+                                <div class="col-12 mt-2 pt-2 border-top border-secondary border-opacity-10">
+                                    <span class="text-muted">💰 Package Value: </span>
+                                    <span class="text-success fw-bold">{{ notice.reward_amount }}</span>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Row: Ref, Delete (Admin), Detail Button -->
+                <div class="pt-3 border-top d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <span class="code-font small text-muted" style="font-size: 0.75rem;">ID: {{ notice.id }}</span>
+
+                    <div class="d-flex align-items-center gap-2">
+                        {% if is_admin %}
+                            <form method="POST" action="{{ url_for('delete_notice', notice_id=notice.id) }}" onsubmit="return confirm('ADMIN CONFIRMATION:\nPermanently remove notice {{ notice.id }}?');" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger btn-sm code-font px-2 py-1 rounded-pill" title="Delete notice" style="font-size: 0.8rem;">
+                                    <i class="bi bi-trash3-fill"></i> Delete
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        <a href="{{ url_for('detail_view', notice_id=notice.id) }}" class="btn btn-primary btn-sm rounded-pill px-3 py-1 fw-semibold text-white" style="background: var(--flex-primary-gradient); border: none; font-size: 0.82rem;">
+                            View Breakdown <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12 text-center py-5">
+            <div class="flex-card p-5">
+                <i class="bi bi-inbox text-muted fs-1 mb-2 d-block"></i>
+                <h5 class="fw-bold text-dark">No notices registered in this stream</h5>
+                <p class="text-muted small mb-3">All newly authorized department entries will appear here live.</p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-primary rounded-pill px-3" style="background: var(--flex-primary-gradient); border: none;">Return to Dashboard</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- No Search Results Found -->
+<div id="noGniotMatchesBox" class="text-center py-5 d-none">
+    <div class="flex-card p-4">
+        <i class="bi bi-search text-muted fs-2 mb-2 d-block"></i>
+        <h5 class="fw-bold text-dark">No matching notices found</h5>
+        <p class="text-muted small mb-0">Try typing another keyword (e.g. title, date, or desk).</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('gniotNoticeSearch');
+        const clearBtn = document.getElementById('clearGniotSearch');
+        const cards = document.querySelectorAll('.gniot-card-item');
+        const countText = document.getElementById('filteredNoticeCount');
+        const noMatchesBox = document.getElementById('noGniotMatchesBox');
+
+        function filterStream() {
+            const query = searchInput.value.toLowerCase().trim();
+            let matches = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title') || '';
+                const desc = card.getAttribute('data-desc') || '';
+                const authority = card.getAttribute('data-authority') || '';
+                const status = card.getAttribute('data-status') || '';
+
+                if (query === '' || title.includes(query) || desc.includes(query) || authority.includes(query) || status.includes(query)) {
+                    card.classList.remove('d-none');
+                    matches++;
+                } else {
+                    card.classList.add('d-none');
+                }
+            });
+
+            if (countText) countText.textContent = `Showing ${matches} matching notice(s)`;
+
+            if (noMatchesBox) {
+                if (matches === 0 && cards.length > 0) {
+                    noMatchesBox.classList.remove('d-none');
+                } else {
+                    noMatchesBox.classList.add('d-none');
+                }
+            }
+        }
+
+        if (searchInput) searchInput.addEventListener('input', filterStream);
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                filterStream();
+                searchInput.focus();
+            });
+        }
+    });
+</script>
+{% endblock %}

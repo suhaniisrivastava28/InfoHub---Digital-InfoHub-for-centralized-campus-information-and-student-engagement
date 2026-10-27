@@ -1,0 +1,603 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In • GNIOT Hub University Portal{% endblock %}
+
+{% block content %}
+<style>
+    /* 100% Fullscreen edge-to-edge campus background */
+    .login-universe-wrapper {
+        min-height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 1.25rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(30, 41, 59, 0.85) 100%), 
+                          url("{{ url_for('static', filename='campus_background.jpg') }}");
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        border-radius: 0 !important;
+        overflow-y: auto;
+    }
+
+    /* Ambient glow elements */
+    .login-universe-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .login-universe-wrapper::after {
+        content: '';
+        position: absolute;
+        bottom: -10%;
+        right: -10%;
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    /* Ultra Glassmorphic Portal Card - Compact & Balanced */
+    .portal-glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.5);
+        border-radius: 18px;
+        width: 100%;
+        max-width: 325px;
+        padding: 1.15rem 1.25rem !important;
+        position: relative;
+        z-index: 10;
+        margin: auto;
+    }
+
+    [data-bs-theme="dark"] .portal-glass-card {
+        background: rgba(15, 23, 42, 0.94);
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Brand Header Box */
+    .brand-hero-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 12px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    /* Navigation Pill Switcher */
+    .auth-tab-nav {
+        background: #f1f5f9;
+        padding: 3px;
+        border-radius: 12px;
+        display: flex;
+        gap: 3px;
+        margin-bottom: 0.9rem;
+    }
+
+    [data-bs-theme="dark"] .auth-tab-nav {
+        background: rgba(30, 41, 59, 0.8);
+    }
+
+    .auth-tab-btn {
+        flex: 1;
+        padding: 6px 10px;
+        border: none;
+        background: transparent;
+        font-weight: 600;
+        font-size: 0.8rem;
+        border-radius: 9px;
+        color: #64748b;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .auth-tab-btn.active {
+        background: #ffffff;
+        color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-bs-theme="dark"] .auth-tab-btn.active {
+        background: #334155;
+        color: #f8fafc;
+    }
+
+    /* Form Fields Styling */
+    .portal-input-group {
+        position: relative;
+        margin-bottom: 0.65rem;
+    }
+
+    .portal-input-icon {
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 0.92rem;
+        z-index: 5;
+        transition: color 0.2s;
+    }
+
+    .portal-input {
+        width: 100%;
+        padding: 7px 30px 7px 32px;
+        border-radius: 10px;
+        border: 1.5px solid #e2e8f0;
+        background: #f8fafc;
+        font-size: 0.82rem;
+        transition: all 0.2s ease;
+    }
+
+    .portal-input:focus {
+        border-color: #4361ee;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        outline: none;
+    }
+
+    .portal-input:focus + .portal-input-icon {
+        color: #4361ee;
+    }
+
+    [data-bs-theme="dark"] .portal-input {
+        background: #1e293b;
+        border-color: #334155;
+        color: #f8fafc;
+    }
+
+    [data-bs-theme="dark"] .portal-input:focus {
+        background: #0f172a;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .pwd-toggle-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 0.95rem;
+        padding: 3px;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    .pwd-toggle-btn:hover {
+        color: #4361ee;
+    }
+
+    /* Remember Me & Welcome Back Banner */
+    .welcome-back-card {
+        background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+        border: 1px solid #c7d2fe;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 0.9rem;
+        display: none;
+        animation: fadeInDown 0.3s ease;
+    }
+
+    [data-bs-theme="dark"] .welcome-back-card {
+        background: linear-gradient(135deg, rgba(67, 97, 238, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+        border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gradient Submit Button */
+    .btn-portal-primary {
+        background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        color: #ffffff;
+        border: none;
+        padding: 8px 12px;
+        font-weight: 600;
+        font-size: 0.86rem;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(67, 97, 238, 0.3);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .btn-portal-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 22px rgba(67, 97, 238, 0.4);
+        color: #ffffff;
+    }
+
+    .btn-portal-success {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        color: #ffffff;
+        border: none;
+        padding: 8px 12px;
+        font-weight: 600;
+        font-size: 0.86rem;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .btn-portal-success:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 22px rgba(5, 150, 105, 0.4);
+        color: #ffffff;
+    }
+</style>
+
+<div class="login-universe-wrapper">
+    <div class="portal-glass-card p-3 p-sm-4">
+
+        <!-- Header: Official College Brand & Portal Identity -->
+        <div class="text-center mb-3">
+            <div class="brand-hero-badge mb-2">
+                <img src="{{ url_for('static', filename='gniot_logo.png') }}" alt="GNIOT Logo" style="max-height: 32px; max-width: 140px; object-fit: contain;">
+            </div>
+            <h4 class="fw-bold mb-0" style="color: var(--flex-text-dark); letter-spacing: -0.02em; font-size: 1.2rem;">GNIOT Hub</h4>
+            <p class="text-muted small mb-0" style="font-size: 0.72rem;">Student &amp; Academic University Portal</p>
+        </div>
+
+        <!-- Auth Mode Switcher Tabs (Sign In / Register) -->
+        <div class="auth-tab-nav" role="tablist">
+            <button class="auth-tab-btn active" id="tab-login-btn" type="button" onclick="switchAuthTab('login')">
+                <i class="bi bi-box-arrow-in-right"></i> Sign In
+            </button>
+            <button class="auth-tab-btn" id="tab-register-btn" type="button" onclick="switchAuthTab('register')">
+                <i class="bi bi-person-plus-fill"></i> New Student
+            </button>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- TAB 1: RETURNING STUDENT / FACULTY SIGN IN -->
+        <!-- ======================================================== -->
+        <div id="tab-login-pane">
+
+            <!-- Welcome Back Banner (Populated when Remember Me is found) -->
+            <div id="welcomeBackBanner" class="welcome-back-card">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                            <span id="savedAvatarLetter">S</span>
+                        </div>
+                        <div>
+                            <span class="d-block fw-bold text-dark small lh-sm" style="font-size: 0.78rem;">Welcome back, <span id="savedNameDisplay">Student</span>!</span>
+                            <span class="text-muted code-font" style="font-size: 0.68rem;">ID: <strong id="savedUsernameDisplay">student</strong> • <span id="savedSemesterDisplay">8th Semester</span></span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-link text-danger p-0 text-decoration-none" onclick="clearSavedCredentials()" title="Forget account" style="font-size: 0.72rem;">
+                        <i class="bi bi-x-circle"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form method="POST" action="{{ url_for('login') }}" id="loginForm" autocomplete="on">
+                
+                <!-- Username / Student ID -->
+                <div class="portal-input-group">
+                    <i class="bi bi-person-badge-fill portal-input-icon"></i>
+                    <input type="text" class="portal-input" id="loginUsername" name="username" placeholder="Student ID, Roll No, or Username" required autofocus>
+                </div>
+
+                <!-- Password -->
+                <div class="portal-input-group">
+                    <i class="bi bi-shield-lock-fill portal-input-icon"></i>
+                    <input type="password" class="portal-input" id="loginPassword" name="password" placeholder="Account Password" required>
+                    <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)" title="Show/Hide Password">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+
+                <!-- Semester Selection during Login -->
+                <div class="portal-input-group">
+                    <i class="bi bi-calendar3 portal-input-icon"></i>
+                    <select class="portal-input" id="loginSemester" name="semester" required>
+                        <option value="" disabled selected>Select Your Academic Semester</option>
+                        <option value="1st Semester">1st Semester (Freshman)</option>
+                        <option value="2nd Semester">2nd Semester</option>
+                        <option value="3rd Semester">3rd Semester (Sophomore)</option>
+                        <option value="4th Semester">4th Semester</option>
+                        <option value="5th Semester">5th Semester (Junior)</option>
+                        <option value="6th Semester">6th Semester</option>
+                        <option value="7th Semester">7th Semester (Senior)</option>
+                        <option value="8th Semester">8th Semester (Final Year)</option>
+                    </select>
+                </div>
+
+                <!-- Remember Me & Forgot Help -->
+                <div class="d-flex align-items-center justify-content-between mb-3 small" style="font-size: 0.75rem;">
+                    <div class="form-check form-switch mb-0">
+                        <input class="form-check-input" type="checkbox" role="switch" id="rememberMeCheckbox" checked style="width: 1.8em; height: 0.9em;">
+                        <label class="form-check-label fw-medium text-muted" for="rememberMeCheckbox" style="font-size: 0.75rem;">
+                            Remember Login
+                        </label>
+                    </div>
+                    <span class="text-primary code-font" onclick="switchAuthTab('register')" style="cursor: pointer; font-size: 0.75rem;">
+                        New here?
+                    </span>
+                </div>
+
+                <!-- Sign In Action Button -->
+                <button type="submit" class="btn btn-portal-primary w-100" id="loginSubmitBtn">
+                    <span>Sign In to Portal</span>
+                    <i class="bi bi-arrow-right-short fs-6"></i>
+                </button>
+            </form>
+
+            <!-- Quick Demo Credentials for Evaluation -->
+            <div class="mt-3 p-2 rounded-3" style="background: rgba(241, 245, 249, 0.7); border: 1px dashed rgba(148, 163, 184, 0.4);">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                    <span class="text-primary fw-bold" style="font-size: 0.72rem;">
+                        <i class="bi bi-lightning-charge-fill me-1"></i> Quick Test Access
+                    </span>
+                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary" style="font-size: 0.65rem;">
+                        1-Click Fill
+                    </span>
+                </div>
+
+                <div class="row g-1">
+                    <div class="col-6">
+                        <div class="p-1 px-2 rounded-2 bg-white border d-flex flex-column" 
+                             style="cursor: pointer; transition: all 0.2s;"
+                             onclick="autofillAndSubmit('student', 'password', '8th Semester', 'Student Scholar')"
+                             title="Sign in as Student">
+                            <span class="fw-bold text-dark" style="font-size: 0.72rem;">👤 Student</span>
+                            <span class="text-muted code-font" style="font-size: 0.65rem;">student / password</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-1 px-2 rounded-2 bg-white border d-flex flex-column" 
+                             style="cursor: pointer; transition: all 0.2s;"
+                             onclick="autofillAndSubmit('admin', 'adminpassword', 'Faculty / Academic Office', 'Faculty Administrator')"
+                             title="Sign in as Faculty Admin">
+                            <span class="fw-bold text-dark" style="font-size: 0.72rem;">⚡ Admin</span>
+                            <span class="text-muted code-font" style="font-size: 0.65rem;">admin / adminpassword</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- TAB 2: NEW STUDENT REGISTRATION -->
+        <!-- ======================================================== -->
+        <div id="tab-register-pane" style="display: none;">
+            <div class="alert alert-primary py-1 px-2 small rounded-2 d-flex align-items-center gap-2 mb-2" style="font-size: 0.72rem;">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>Create student account for GNIOT notices and exam feeds.</span>
+            </div>
+
+            <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+                
+                <!-- Full Name -->
+                <div class="portal-input-group">
+                    <i class="bi bi-person-fill portal-input-icon"></i>
+                    <input type="text" class="portal-input" id="regFullName" name="reg_fullname" placeholder="Full Student Name" required>
+                </div>
+
+                <!-- Student Roll No / Username -->
+                <div class="portal-input-group">
+                    <i class="bi bi-card-text portal-input-icon"></i>
+                    <input type="text" class="portal-input" id="regUsername" name="reg_username" placeholder="Student Roll No / Username" required>
+                </div>
+
+                <!-- Academic Department / Branch -->
+                <div class="portal-input-group">
+                    <i class="bi bi-mortarboard-fill portal-input-icon"></i>
+                    <select class="portal-input" id="regDepartment" name="reg_department" required>
+                        <option value="B.Tech Computer Science & Engineering" selected>B.Tech CSE</option>
+                        <option value="B.Tech Information Technology">B.Tech IT</option>
+                        <option value="B.Tech Electronics & Comm. (ECE)">B.Tech ECE</option>
+                        <option value="B.Tech Mechanical Engineering">B.Tech Mechanical</option>
+                        <option value="Bachelor of Computer Applications (BCA)">BCA</option>
+                        <option value="Master of Computer Applications (MCA)">MCA</option>
+                    </select>
+                </div>
+
+                <!-- Current Semester during Registration -->
+                <div class="portal-input-group">
+                    <i class="bi bi-calendar3 portal-input-icon"></i>
+                    <select class="portal-input" id="regSemester" name="reg_semester" required>
+                        <option value="" disabled selected>Select Semester</option>
+                        <option value="1st Semester">1st Semester (Freshman)</option>
+                        <option value="2nd Semester">2nd Semester</option>
+                        <option value="3rd Semester">3rd Semester (Sophomore)</option>
+                        <option value="4th Semester">4th Semester</option>
+                        <option value="5th Semester">5th Semester (Junior)</option>
+                        <option value="6th Semester">6th Semester</option>
+                        <option value="7th Semester">7th Semester (Senior)</option>
+                        <option value="8th Semester">8th Semester (Final Year)</option>
+                    </select>
+                </div>
+
+                <!-- Set Password -->
+                <div class="portal-input-group">
+                    <i class="bi bi-key-fill portal-input-icon"></i>
+                    <input type="password" class="portal-input" id="regPassword" name="reg_password" placeholder="Create Password" required minlength="4">
+                    <button type="button" class="pwd-toggle-btn" onclick="togglePasswordVisibility('regPassword', this)" title="Show/Hide Password">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-portal-success w-100 mt-2">
+                    <i class="bi bi-person-check-fill"></i>
+                    <span>Register Student Account</span>
+                </button>
+
+                <div class="text-center mt-2">
+                    <a href="javascript:void(0)" onclick="switchAuthTab('login')" class="text-decoration-none small text-muted" style="font-size: 0.74rem;">
+                        Already have credentials? <strong class="text-primary">Sign in</strong>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer Notice -->
+        <div class="text-center mt-3 pt-2 border-top border-secondary border-opacity-10 small text-muted code-font" style="font-size: 0.68rem;">
+            <span>GNIOT Hub • Secured Academic Session</span>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const STORAGE_KEY = 'gniot_remembered_student';
+
+    function switchAuthTab(tab) {
+        const loginPane = document.getElementById('tab-login-pane');
+        const regPane = document.getElementById('tab-register-pane');
+        const loginBtn = document.getElementById('tab-login-btn');
+        const regBtn = document.getElementById('tab-register-btn');
+
+        if (tab === 'register') {
+            loginPane.style.display = 'none';
+            regPane.style.display = 'block';
+            loginBtn.classList.remove('active');
+            regBtn.classList.add('active');
+            document.getElementById('regFullName').focus();
+        } else {
+            regPane.style.display = 'none';
+            loginPane.style.display = 'block';
+            regBtn.classList.remove('active');
+            loginBtn.classList.add('active');
+            document.getElementById('loginUsername').focus();
+        }
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedDataRaw = localStorage.getItem(STORAGE_KEY);
+        if (savedDataRaw) {
+            try {
+                const saved = JSON.parse(savedDataRaw);
+                if (saved && saved.username && saved.password) {
+                    const uInput = document.getElementById('loginUsername');
+                    const pInput = document.getElementById('loginPassword');
+                    const sSelect = document.getElementById('loginSemester');
+                    const remCheckbox = document.getElementById('rememberMeCheckbox');
+                    
+                    uInput.value = saved.username;
+                    pInput.value = saved.password;
+                    if (saved.semester && sSelect) {
+                        sSelect.value = saved.semester;
+                    }
+                    remCheckbox.checked = true;
+
+                    const banner = document.getElementById('welcomeBackBanner');
+                    const nameDisp = document.getElementById('savedNameDisplay');
+                    const userDisp = document.getElementById('savedUsernameDisplay');
+                    const semDisp = document.getElementById('savedSemesterDisplay');
+                    const avatarLetter = document.getElementById('savedAvatarLetter');
+
+                    nameDisp.textContent = saved.fullName || saved.username;
+                    userDisp.textContent = saved.username;
+                    if (semDisp && saved.semester) {
+                        semDisp.textContent = saved.semester;
+                    }
+                    avatarLetter.textContent = (saved.fullName || saved.username).charAt(0).toUpperCase();
+                    banner.style.display = 'block';
+                }
+            } catch (e) {
+                console.error("Error reading saved credentials", e);
+            }
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function() {
+                const u = document.getElementById('loginUsername').value.trim();
+                const p = document.getElementById('loginPassword').value;
+                const sem = document.getElementById('loginSemester').value;
+                const rem = document.getElementById('rememberMeCheckbox').checked;
+
+                if (rem) {
+                    const toSave = {
+                        username: u,
+                        password: p,
+                        semester: sem,
+                        fullName: u.charAt(0).toUpperCase() + u.slice(1)
+                    };
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+                } else {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+            });
+        }
+    });
+
+    function clearSavedCredentials() {
+        localStorage.removeItem(STORAGE_KEY);
+        document.getElementById('welcomeBackBanner').style.display = 'none';
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        document.getElementById('loginSemester').selectedIndex = 0;
+        document.getElementById('rememberMeCheckbox').checked = false;
+    }
+
+    function autofillAndSubmit(u, p, sem, name) {
+        document.getElementById('loginUsername').value = u;
+        document.getElementById('loginPassword').value = p;
+        document.getElementById('loginSemester').value = sem;
+        document.getElementById('rememberMeCheckbox').checked = true;
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            username: u,
+            password: p,
+            semester: sem,
+            fullName: name
+        }));
+
+        document.getElementById('loginForm').submit();
+    }
+</script>
+{% endblock %}

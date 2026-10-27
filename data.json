@@ -1,0 +1,382 @@
+{
+  "categories": [
+    {
+      "id": "scholarships",
+      "name": "Scholarships",
+      "icon": "💰",
+      "tagline": "Institutional merit awards, tuition grants, and research endowments"
+    },
+    {
+      "id": "events",
+      "name": "Events",
+      "icon": "🎉",
+      "tagline": "Campus cultural galas, competitive athletic meets, and hack fests"
+    },
+    {
+      "id": "holidays",
+      "name": "Holidays",
+      "icon": "📅",
+      "tagline": "Official university holiday calendars, exam recesses, and semester breaks"
+    },
+    {
+      "id": "seminars",
+      "name": "Seminars",
+      "icon": "👨🏫",
+      "tagline": "Technical research colloquiums, keynote lectures, and faculty symposia"
+    },
+    {
+      "id": "sip-tracker",
+      "name": "SIP Tracker",
+      "icon": "📈",
+      "tagline": "Summer Internship Project evaluations, supervisor logs, and reviews"
+    },
+    {
+      "id": "orientation",
+      "name": "Orientation",
+      "icon": "🎯",
+      "tagline": "Induction programs, campus council briefings, and departmental mixers"
+    },
+    {
+      "id": "hackathons",
+      "name": "Hackathons",
+      "icon": "💻",
+      "tagline": "36-hour sprint coding, embedded systems prototyping, and buildathons"
+    },
+    {
+      "id": "placements",
+      "name": "Placements",
+      "icon": "💼",
+      "tagline": "Tier-1 corporate recruitment drives, pre-placement talks, and interviews"
+    }
+  ],
+  "notices": [
+    {
+      "id": "SEM-2026-03",
+      "category": "seminars",
+      "title": "IDS & CareerXel – Emerging Technology Workshop Series 2026",
+      "description": "Comprehensive online emerging technology workshop series focusing on Artificial Intelligence (AI), Cybersecurity, Blockchain Technology, Product Management, and Industry & Career Guidance. Learn directly from industry experts, gain practical insights, develop future-ready skills, and earn a Blockchain-Verified Certificate.",
+      "eligibility": "Open to all enrolled students across all branches and academic years. Free registration.",
+      "starting_date": "2026-10-26",
+      "ending_date": "2026-10-30",
+      "reward_amount": "Free Registration + Blockchain-Verified Certificate",
+      "concerned_authorities": "IDS & CareerXel Industry Partnership Desk / GNIOT Training & Placement Cell",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Online Track",
+      "official_url": "https://careerxel.com",
+      "required_documents": [
+        "GNIOT Student ID Card",
+        "Registered Email for Online Portal Access"
+      ],
+      "timing": "4:00 PM – 6:00 PM IST (Monday to Friday)",
+      "venue": "Online Virtual Classroom"
+    },
+    {
+      "id": "HAK-2026-02",
+      "category": "hackathons",
+      "title": "SHE INNOVATES 2.0 - IDEATHON (She Ideates | She Presents | She Wins)",
+      "description": "Inter-College Idea Competition organized exclusively for female students by WISE Society of Greater Noida Institute of Technology. Teams of 1 to 2 members present original and innovative solutions with a max 8-slide PPT covering Problem, Solution, Technology & Outcome (5 min presentation + 2 min Q&A). Organized under the leadership of Prof. (Dr.) Dhiraj Gupta (Director), Prof. (Dr.) Seema Arora (President-WISE, HOD EE), and Dr. Monika Dixit (Vice President-WISE).",
+      "eligibility": "Exclusively for Female Students from Any College / Branch / Year. Teams of 1 to 2 members.",
+      "starting_date": "2026-09-10",
+      "ending_date": "2026-09-18",
+      "reward_amount": "Prizes for Winners + Official Certificates for All Participants",
+      "concerned_authorities": "Team WISE, GNIOT (Innovation Centre & Department of Electrical Engineering)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "official_url": "https://forms.gle/1wALrvDQaQyizBW2A",
+      "poster_image": "she_innovates_poster.png",
+      "required_documents": [
+        "College Student ID Card (Female Students Only)",
+        "Max 8 Slides PPT (Problem, Solution, Technology, Outcome)",
+        "Google Form Registration Confirmation"
+      ],
+      "timing": "23rd September 2026, 9:00 AM Onwards",
+      "venue": "Innovation Centre, GNIOT"
+    },
+    {
+      "id": "EVT-2026-02",
+      "category": "events",
+      "title": "Blood Donation Camp 2026 - Social Club GNIOT & Rotary Club",
+      "description": "Life-saving blood donation camp organized by The Social Club of GNIOT in association with Rotary Club. Staff, faculty members, and students from B.Tech 132 and all campus departments are encouraged to register and step forward. Donors will be provided official attendance in lieu of their presence in the camp. 'Your Blood Can Be Someone's Lifeline — Be a Hero, Donate Today!'",
+      "eligibility": "Open to all staff, faculty members, and students (B.Tech 132 & all branches). Donors must be 18+ and medically eligible.",
+      "starting_date": "2026-09-12",
+      "ending_date": "2026-09-22",
+      "reward_amount": "Donor Honor Certificate, Refreshments & Official Attendance Waiver",
+      "concerned_authorities": "The Social Club of GNIOT & Rotary Club Liaison Desk (GIPS Seminar Wing)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "official_url": "https://docs.google.com/forms/d/e/1FAIpQLSe6ZcSS64K2-mk5Hd1RaavlkY94-eT5f4o3jaCnS-vZ6N-hmA/viewform?usp=publish-editor",
+      "poster_image": "blood_donation_poster.png",
+      "required_documents": [
+        "GNIOT Student / Staff ID Card",
+        "Aadhaar / Government Photo ID",
+        "Camp Registration Form"
+      ],
+      "timing": "22nd September 2026 (Tuesday), 10:00 AM to 3:30 PM",
+      "venue": "Seminar Hall, GIPS"
+    },
+    {
+      "id": "SIP-2026-02",
+      "category": "sip-tracker",
+      "title": "Industrial Visit at Microsoft India - Sovereign Capital Sector 16A Noida",
+      "description": "The Department of Computer Science & Engineering, in collaboration with GNIOT CSE Tech Club, is pleased to announce an exclusive industrial visit to Microsoft India. Experience the professional corporate environment of a global technology leader, gain direct industry exposure, and understand enterprise cloud & software architectures.",
+      "eligibility": "Exclusively for 2nd & 3rd Year CSE Students. Strictly limited to 50 participants (selection based on registration details).",
+      "starting_date": "2026-07-28",
+      "ending_date": "2026-08-06",
+      "reward_amount": "Corporate Industry Exposure & Official Visit Participation Certificate",
+      "concerned_authorities": "Department of Computer Science & Engineering & GNIOT CSE Tech Club",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "official_url": "https://forms.gle/VaqXcrJ5tMG77xAC9",
+      "required_documents": [
+        "CSE Student ID Card (2nd or 3rd Year)",
+        "Parental Consent Letter",
+        "Departmental Bonafide Clearance"
+      ],
+      "timing": "8th August 2026 (Saturday) | Visit: 10:00 AM – 12:00 PM | Reporting: 9:00 AM at Campus",
+      "venue": "Microsoft Sovereign Capital Sector 16A, Noida (College Bus Facility Provided)"
+    },
+    {
+      "id": "HAK-2026-03",
+      "category": "hackathons",
+      "title": "SIH 2026 – Internal Smart India Hackathon at GNIOT (Think. Build. Innovate. Compete.)",
+      "description": "Internal qualification hackathon for Smart India Hackathon (SIH 2026) organized by the Department of Computer Science & Engineering & GNIOT-CSE Tech Club. Participating teams showcase innovative technical prototypes, embedded engineering, and software architectures to secure official institutional nomination for the national Smart India Hackathon.",
+      "eligibility": "All participating B.Tech / CSE teams registered for Smart India Hackathon 2026. Teams of 6 members including at least one female teammate.",
+      "starting_date": "2026-08-25",
+      "ending_date": "2026-09-12",
+      "reward_amount": "Official GNIOT Nomination for National SIH 2026 + Institutional Grants",
+      "concerned_authorities": "Department of Computer Science & Engineering & GNIOT-CSE Tech Club",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "official_url": "https://gniotgroup.edu.in",
+      "poster_image": "sih_2026_poster.png",
+      "required_documents": [
+        "SIH 2026 Idea Presentation PPT",
+        "Team Member GNIOT ID Cards",
+        "Working Prototype / GitHub Repository"
+      ],
+      "timing": "12th September 2026, 10:00 AM Onwards",
+      "venue": "Department of CSE, GNIOT"
+    },
+    {
+      "id": "SCH-2026-01",
+      "category": "scholarships",
+      "title": "GNIOT Merit Excellence Scholarship 2026-27",
+      "description": "State and institutional merit sponsorship grant for undergraduate engineering students with annual parental income below 2.5 LPA and CGPA above 7.5.",
+      "eligibility": "B.Tech students with CGPA >= 7.50, zero active backlogs, annual family income under ₹2,50,000.",
+      "starting_date": "2026-09-15",
+      "ending_date": "2026-10-30",
+      "reward_amount": "₹50,000 / Year Full Grant",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Desk 4, Student Welfare Section, Ground Floor Block A)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "required_documents": [
+        "Tehsildar Signed Income Certificate (Current Financial Year)",
+        "Previous Semester Marksheet (Attested copy)",
+        "GNIOT Student ID Card & Bonafide Certificate",
+        "Nationalized Bank Passbook Front Page (Aadhaar Linked)",
+        "Domicile Certificate"
+      ],
+      "official_url": "https://scholarships.gov.in"
+    },
+    {
+      "id": "SCH-2026-02",
+      "category": "scholarships",
+      "title": "Alumni Foundation Tech Innovator Grant",
+      "description": "Crowdsourced alumni foundation fellowship for students publishing open-source software, competitive robotics, or AI projects.",
+      "eligibility": "Open to all 2nd & 3rd year engineering students with a published GitHub project or national podium finish.",
+      "starting_date": "2026-09-20",
+      "ending_date": "2026-10-15",
+      "reward_amount": "₹25,000 One-time Endowment",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Room 102, Innovation Incubation Hub, CR Aman / Prof. V. Patil)",
+      "verification_level": "crowdsourced",
+      "verification_label": "🟡 Crowdsourced (Contributed by CR / Student Council)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "GitHub Repository URL & Architecture Readme PDF",
+        "Recommendation Letter from Department Faculty Mentor",
+        "Latest Semester Grade Card",
+        "1-Page Project Abstract"
+      ],
+      "official_url": "https://alumni.gniot.edu.in/grants"
+    },
+    {
+      "id": "SCH-2026-03",
+      "category": "scholarships",
+      "title": "Private EdTech External Travel Bursary",
+      "description": "Third-party sponsor conference travel bursary posted on public student forums pending administrative verification.",
+      "eligibility": "Any enrolled student presenting papers at IEEE conferences.",
+      "starting_date": "2026-10-01",
+      "ending_date": "2026-10-25",
+      "reward_amount": "₹15,000 Travel Grant",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (External Notice Board Counter, Pending Verification)",
+      "verification_level": "unconfirmed",
+      "verification_label": "🔴 Unconfirmed Public Entry (Verification Pending)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Conference Paper Acceptance Letter",
+        "Student ID Card Copy"
+      ],
+      "official_url": "https://forms.gle/edtech-travel-grant"
+    },
+    {
+      "id": "EVT-2026-01",
+      "category": "events",
+      "title": "GNIOT TechSparks 2026 Annual Inter-College Fest",
+      "description": "The flagship annual engineering and cultural festival featuring 25+ events, cyber drone races, robo-wars, and celebrity night.",
+      "eligibility": "All enrolled college students across all disciplines and semesters.",
+      "starting_date": "2026-10-10",
+      "ending_date": "2026-10-12",
+      "reward_amount": "",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Central Auditorium Stage Control Room, Cultural Committee)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Valid College Student ID Card",
+        "Event Registration Receipt Barcode",
+        "Parental Consent Undertaking for Late Evening Events"
+      ],
+      "official_url": "https://techsparks.gniot.edu.in"
+    },
+    {
+      "id": "HOL-2026-01",
+      "category": "holidays",
+      "title": "Mid-Semester Autumn Break & National Holiday Notice",
+      "description": "College administrative offices, lecture halls, central library, and academic wings will remain closed during the autumn recess.",
+      "eligibility": "Applicable to all faculties, staff members, and enrolled undergraduate students.",
+      "starting_date": "2026-10-02",
+      "ending_date": "2026-10-06",
+      "reward_amount": "",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Office of the Registrar, Central Admin Block)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Hostel Outstation Gate Pass Application (Resident Hostellers Only)"
+      ],
+      "official_url": "https://gniot.edu.in/circulars/autumn-break"
+    },
+    {
+      "id": "SEM-2026-01",
+      "category": "seminars",
+      "title": "Expert Masterclass: Edge AI and Quantum Neural Architectures",
+      "description": "Technical seminar presented by Google Research scientists on optimizing deep learning models directly on edge IoT microcontrollers.",
+      "eligibility": "2nd, 3rd, and 4th Year CSE, IT, AI/DS, and ECE students.",
+      "starting_date": "2026-09-28",
+      "ending_date": "2026-09-28",
+      "reward_amount": "",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Room 305, Block B Main Seminar Hall, Dr. Meenakshi Sundaram)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Pre-Seminar Registration Pass (Google Forms QR)",
+        "Laptop with Python 3.10+ Environment Prepared"
+      ],
+      "official_url": "https://forms.gle/seminar-quantum-gniot"
+    },
+    {
+      "id": "SIP-2026-01",
+      "category": "sip-tracker",
+      "title": "Mid-Term SIP Logbook & Industry Mentor Review Submission",
+      "description": "Mandatory phase 1 submission for Summer Internship Projects (SIP). Submit industrial supervisor signoff and weekly work logs.",
+      "eligibility": "All 2nd year students registered under Summer Industry Internship Course BTP-402.",
+      "starting_date": "2026-09-25",
+      "ending_date": "2026-10-08",
+      "reward_amount": "₹15,000 Corporate Stipend Benchmark",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Department Internship Cell, Cabin 12, Level 3 - Prof. K. Verma)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "required_documents": [
+        "Hardcopy SIP Logbook signed by Company External Mentor",
+        "Company Attendance Certificate on Official Letterhead",
+        "Interim 10-Page Progress Synopsis",
+        "Turnitin Plagiarism Verification Report (< 15%)"
+      ],
+      "official_url": "https://sip.gniot.edu.in/tracker"
+    },
+    {
+      "id": "ORI-2026-01",
+      "category": "orientation",
+      "title": "Technical Clubs Showcase & Direct Peer Induction",
+      "description": "Peer mentorship orientation and recruitment drive for ACM, IEEE, GDG, CyberSec, and Robotics Club. Meet project leads directly.",
+      "eligibility": "1st and 2nd Year undergraduate engineering students.",
+      "starting_date": "2026-09-29",
+      "ending_date": "2026-09-30",
+      "reward_amount": "",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Central Quadrangle Booth No. 7, CR Rohini / Student Club Council)",
+      "verification_level": "crowdsourced",
+      "verification_label": "🟡 Crowdsourced (Contributed by CR / Student Council)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Valid Student ID Card",
+        "Brief Project Interest Profile / Skill Survey Form"
+      ],
+      "official_url": "https://clubs.gniot.edu.in/induction"
+    },
+    {
+      "id": "HAK-2026-01",
+      "category": "hackathons",
+      "title": "GNIOT Smart Campus Hackathon 2026: Zero-ERP Sprint",
+      "description": "36-hour non-stop prototype building marathon to solve real daily campus bottlenecks using lightweight distributed architectures.",
+      "eligibility": "Teams of 3 to 4 college students. Cross-department squads permitted.",
+      "starting_date": "2026-10-18",
+      "ending_date": "2026-10-20",
+      "reward_amount": "₹75,000 Winner Trophy & Seed Grant",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Software Development Lab 1, CS Block - Dr. Gupta)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "Team Registration Form",
+        "One-Page Solution Abstract / Architecture Deck",
+        "All Members College ID Scans"
+      ],
+      "official_url": "https://hackathon.gniot.edu.in"
+    },
+    {
+      "id": "PLC-2026-01",
+      "category": "placements",
+      "title": "Tier-1 Corporate Pre-Placement Briefing & Assessment",
+      "description": "On-campus recruitment kickoff: corporate briefing followed by national cognitive and coding assessment for Consultant & Analyst roles.",
+      "eligibility": "B.Tech 3rd and Final Year students with min 60% aggregate in 10th, 12th, and Degree.",
+      "starting_date": "2026-10-05",
+      "ending_date": "2026-10-07",
+      "reward_amount": "₹9.5 - 14.0 LPA CTC Package",
+      "concerned_authorities": "Contact Registrar Office, Dean, or relevant HOD Section (Placement & Training Cell, Room 204, Admin Tower - Dr. V. Rao)",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized (Faculty / Dean / HOD)",
+      "submission_type": "Physical Track",
+      "required_documents": [
+        "Updated 2-Page Technical Resume (2 Hard Copies)",
+        "TPO Master Registration Card",
+        "All Semester Marksheets (Originals + 1 Set Xerox)",
+        "Two Passport-Size Formal Photographs"
+      ],
+      "official_url": "https://tpo.gniot.edu.in/drives"
+    }
+  ],
+  "users": [
+    {
+      "username": "aarav2026",
+      "password": "mysecretpassword",
+      "role": "student",
+      "full_name": "Aarav Sharma",
+      "department": "B.Tech Computer Science & Engineering"
+    },
+    {
+      "username": "2233719",
+      "password": "667799",
+      "role": "student",
+      "full_name": "Aarav",
+      "department": "B.Tech Computer Science & Engineering"
+    }
+  ]
+}
