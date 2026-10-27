@@ -191,12 +191,14 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """
     New Student Self-Registration Portal.
     Allows new students to set up their custom login and password.
     """
+    if request.method == "GET":
+        return redirect(url_for("login"))
     full_name = request.form.get("reg_fullname", "").strip()
     username = request.form.get("reg_username", "").strip().lower()
     password = request.form.get("reg_password", "").strip()
@@ -476,13 +478,14 @@ def detail_view(notice_id):
     google_calendar_url = f"https://calendar.google.com/calendar/render?{urllib.parse.urlencode(cal_params)}"
 
     # WhatsApp Click-to-Chat Share URL Builder
+    live_notice_url = f"{request.host_url}notice/{notice.get('id')}"
     whatsapp_text = (
-        f"📢 *GNIOT Hub Platform Notification*\n\n"
+        f"📢 *GNIOT InfoHub Notification*\n\n"
         f"📌 *{notice.get('title')}*\n"
         f"🗓️ *Deadline:* {notice.get('ending_date')}\n"
         f"🏛️ *Authority Desk:* {notice.get('concerned_authorities')}\n"
         f"🛡️ *Status:* {notice.get('verification_label', 'Verified')}\n"
-        f"🔗 *Console Link:* GNIOT Hub (Port 5010)"
+        f"🔗 *Notice Link:* {live_notice_url}"
     )
     whatsapp_url = f"https://api.whatsapp.com/send?text={urllib.parse.quote(whatsapp_text)}"
 
@@ -512,6 +515,15 @@ def page_not_found(e):
         error_title="404 - Channel or Notice Not Found",
         error_message="The requested track or notice ID does not exist in local data.json."
     ), 404
+
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template(
+        "base.html",
+        error_title="500 - Internal Server Error",
+        error_message="An unexpected system condition occurred. Please retry or return to dashboard."
+    ), 500
 
 
 # ---------------------------------------------------------------------------

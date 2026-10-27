@@ -49,25 +49,37 @@ The platform utilizes a structured schema with three primary collections: `categ
 {
   "categories": [
     {
-      "id": "academic",
-      "name": "Academic Notices",
-      "description": "Curriculum, lecture timetables, syllabus updates, and faculty advisories.",
-      "icon": "bi-mortarboard",
-      "color": "primary"
+      "id": "seminars",
+      "name": "Seminars",
+      "icon": "👨🏫",
+      "tagline": "Technical research colloquiums, keynote lectures, and faculty symposia"
+    },
+    {
+      "id": "hackathons",
+      "name": "Hackathons",
+      "icon": "💻",
+      "tagline": "36-hour sprint coding, embedded systems prototyping, and buildathons"
     }
   ],
   "notices": [
     {
-      "id": 1,
-      "title": "Registration Open: IDS 36-Hour Workshop on AI & Cybersecurity",
-      "category_id": "academic",
-      "content": "Detailed announcement body...",
-      "date": "2026-10-25",
-      "author": "Department of Computer Science & Engineering",
-      "priority": "High",
-      "status": "Active",
-      "image_url": "static/ids_workshop_poster.png",
-      "link_url": "https://forms.gle/sample-ids-registration"
+      "id": "SEM-2026-03",
+      "category": "seminars",
+      "title": "IDS & CareerXel – Emerging Technology Workshop Series 2026",
+      "description": "Comprehensive online emerging technology workshop series focusing on AI, Cybersecurity, Blockchain...",
+      "eligibility": "Open to all enrolled students across all branches and academic years.",
+      "starting_date": "2026-10-26",
+      "ending_date": "2026-10-30",
+      "concerned_authorities": "Dept of CSE / CareerXel Cell",
+      "verification_level": "official",
+      "verification_label": "🟢 Officially Authorized by Faculty / Dean / HOD",
+      "submission_type": "Online Track",
+      "required_documents": [
+        "GNIOT Student ID Card",
+        "Laptop with Python installed"
+      ],
+      "official_url": "https://forms.gle/sample-ids-workshop",
+      "poster_image": "static/ids_workshop_poster.png"
     }
   ],
   "users": [
@@ -75,15 +87,17 @@ The platform utilizes a structured schema with three primary collections: `categ
       "username": "student",
       "password": "password",
       "role": "student",
-      "name": "Student Profile",
+      "full_name": "Student Scholar",
+      "department": "B.Tech Engineering",
       "semester": "8th Semester"
     },
     {
       "username": "admin",
       "password": "adminpassword",
       "role": "admin",
-      "name": "Academic Administrator",
-      "semester": "Faculty / Staff"
+      "full_name": "Faculty Administrator",
+      "department": "Central Administrative Tower",
+      "semester": "Faculty / Academic Office"
     }
   ]
 }

@@ -23,7 +23,7 @@ InfoHub empowers students to instantly view categorized notices, track official 
 ## 3. Product Vision & Goals
 * **Single Source of Truth**: Centralize 100% of campus notices, official posters, circulars, and academic calendars under one unified portal.
 * **Streamlined Student Access**: Fast, friction-free login with persistent authentication ("Remember Me"), semester-level personalization, and instant zero-friction registration for new students.
-* **Categorized Intelligence**: 8 distinct academic channels (Academic Notices, Examination Cell, Placement & Training, Events & Fests, Sports & Fitness, Clubs & Societies, Research & Innovation, Hostels & Transport).
+* **Categorized Intelligence**: 8 distinct campus channels (Scholarships, Events, Holidays, Seminars, SIP Tracker, Orientation, Hackathons, Placements).
 * **Role-Based Governance**: Strict segregation between administrative notice broadcast authorities and student read/engagement access.
 * **Modern Aesthetic**: Glassmorphic, dark/light responsive cyber-academic visual architecture adhering to university design standards.
 
@@ -56,7 +56,7 @@ InfoHub empowers students to instantly view categorized notices, track official 
 | **FR-02** | **Semester Selection** | Dropdown selection (1st through 8th Semester) captured during login and registration, displayed across dashboard badges. | P0 (Must Have) |
 | **FR-03** | **Remember Me & Quick Login** | Persistent client-side session caching with 1-click instant login banner and profile forget button. | P0 (Must Have) |
 | **FR-04** | **New Student Registration** | Dedicated self-registration tab validating Student ID, Full Name, Password, and Semester with instant credential enrollment. | P0 (Must Have) |
-| **FR-05** | **8 Academic Notice Tracks** | Dedicated categorizations: Academic Notices, Exam Cell, Placement Drive, Events & Fests, Sports, Clubs, Research, Hostels. | P0 (Must Have) |
+| **FR-05** | **8 Campus Notice Tracks** | Dedicated channels: Scholarships, Events, Holidays, Seminars, SIP Tracker, Orientation, Hackathons, Placements. | P0 (Must Have) |
 | **FR-06** | **Search & Real-time Filter** | Interactive client-side live keyword search, urgency filter (Urgent/Normal), and category pill filters. | P0 (Must Have) |
 | **FR-07** | **Interactive Academic Calendar** | Embedded PDF viewer for official GNIOT Academic Calendar Session 2026-27 (Odd Sem), multi-page image viewports, and timeline milestones. | P0 (Must Have) |
 | **FR-08** | **Role-Based Access Control (RBAC)**| Protected session routing: Student (`student`/`password`), Admin (`admin`/`adminpassword`). Only Admin can post/delete notices. | P0 (Must Have) |

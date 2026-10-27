@@ -9,3 +9,14 @@ venv/
 ENV/
 .vercel/
 *.log
+
+# Scratch scripts & temporary build artifacts
+add_notices.py
+generate_synopsis.py
+insert_flowchart_page.py
+static/infohub_project_synopsis.pdf
+static/s1_test*
+static/s2_test*
+static/sheet*
+static/synopsis_page*
+static/academic_calendar_crop.png
