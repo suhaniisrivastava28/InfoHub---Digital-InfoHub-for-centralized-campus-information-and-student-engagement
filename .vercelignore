@@ -1,0 +1,11 @@
+static/infohub_project_synopsis.pdf
+static/s1_test*
+static/s2_test*
+static/sheet*
+generate_synopsis.py
+insert_flowchart_page.py
+add_notices.py
+.git
+.github
+PRD.md
+TRD.md
